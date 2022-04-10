@@ -13,7 +13,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t public.ecr.aws/t0g6l7a0/domain_list .
+      - docker build -t ${REPOSITORY_URI}:latest .
       - docker tag public.ecr.aws/t0g6l7a0/domain_list public.ecr.aws/t0g6l7a0/domain_list:$IMAGE_TAG
   post_build:
     commands:
