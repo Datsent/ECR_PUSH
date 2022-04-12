@@ -6,8 +6,8 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - docker login --username "${DOCKERHUB_USERNAME}" --password "${DOCKERHUB_PASSWORD}"
-      - aws ecr-public get-login-password --region us-east-1
-      - REPOSITORY_URI=public.ecr.aws/t0g6l7a0/domain_list
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 453169210778.dkr.ecr.us-east-1.amazonaws.com
+      - REPOSITORY_URI=453169210778.dkr.ecr.us-east-1.amazonaws.com/test
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
@@ -19,5 +19,5 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker images...
-      - docker push public.ecr.aws/t0g6l7a0/domain_list:latest
+      - docker push REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
