@@ -21,6 +21,7 @@ phases:
       - echo Pushing Docker images...
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - printf '[{"name":"exam-task","imageUri":"%s"}]' "$IMAGE_URI" > images.json
 
 artifacts:
-  files: codepipeline-us-east-1-139944249255/test_pipe/BuildArtif/images.json
+  files: images.json
