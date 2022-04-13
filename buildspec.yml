@@ -23,4 +23,4 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
 
 artifacts:
-  files: images.json
+  files: codepipeline-us-east-1-139944249255/test_pipe/BuildArtif/images.json
