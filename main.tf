@@ -5,6 +5,9 @@
 provider "aws" {
   region = "us-east-1"
 }
+resource "aws_ecr_repository" "ecs_push" {
+  name = "ecs_push"
+}
 
 resource "aws_codebuild_project" "codebuild_project" {
   name          = "ecr_push"
@@ -30,7 +33,16 @@ resource "aws_codebuild_project" "codebuild_project" {
     compute_type                = "BUILD_GENERAL1_SMALL"
     image_pull_credentials_type = "CODEBUILD"
     privileged_mode             = true
-
+    environment_variable {
+      name  = "DOCKERHUB_USERNAME"
+      value = "dockerhub:username"
+      type = "SECRETS_MANAGER"
+    }
+    environment_variable {
+      name  = "DOCKERHUB_PASSWORD"
+      value = "dockerhub:password"
+      type = "SECRETS_MANAGER"
+    }
   }
 
   logs_config {
